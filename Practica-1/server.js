@@ -53,34 +53,34 @@ router.get("/product", (req, res) => {
         description: product.description
     })
 })
+//
+// router.post("/add-to-cart", (req, res) => {
+//     var info = req.body
+//     var cart = JSON.parse(req.cookies["cart"] || "{}")
+//     cart[info.product_id] = cart[info.product_id] || 0
+//
+//     cart[info.product_id] += info.product_quantity
+//
+//     res.cookie("cart", JSON.stringify(cart), { maxAge: 60 * 60 * 24 * 14} ) // two weeks
+//
+//     res.json(cart)
+// })
 
-router.post("/add-to-cart", (req, res) => {
-    var info = req.body
-    var cart = JSON.parse(req.cookies["cart"] || "{}")
-    cart[info.product_id] = cart[info.product_id] || 0
-
-    cart[info.product_id] += info.product_quantity
-
-    res.cookie("cart", JSON.stringify(cart), { maxAge: 60 * 60 * 24 * 14} ) // two weeks
-
-    res.json(cart)
-})
-
-router.get("/confirm-order", (req, res) => {
-    var productsHTML = "<h1>Order:</h1><a href='/'>Back to Home page</a>"
-    var cart = JSON.parse(req.cookies["cart"] || "{}")
-    for (var key in cart) {
-        var product = PRODUCTS[parseInt(key)]
-        var quantity = cart[key]
-        productsHTML += `<p>Name: ${product.name}</p>
-            <p>Quantity: ${quantity}</p>
-            <p>Price: ${product.price}</p>
-            <p>Total: ${(product.price * quantity).toFixed(2)}</p>
-            <hr>
-        `
-    }
-    res.clearCookie("cart")
-    res.html(`<html><head></head><body>${productsHTML}</body></html>`)
-})
+// router.get("/confirm-order", (req, res) => {
+//     var productsHTML = "<h1>Order:</h1><a href='/'>Back to Home page</a>"
+//     var cart = JSON.parse(req.cookies["cart"] || "{}")
+//     for (var key in cart) {
+//         var product = PRODUCTS[parseInt(key)]
+//         var quantity = cart[key]
+//         productsHTML += `<p>Name: ${product.name}</p>
+//             <p>Quantity: ${quantity}</p>
+//             <p>Price: ${product.price}</p>
+//             <p>Total: ${(product.price * quantity).toFixed(2)}</p>
+//             <hr>
+//         `
+//     }
+//     res.clearCookie("cart")
+//     res.html(`<html><head></head><body>${productsHTML}</body></html>`)
+// })
 
 router.listen(8000)
